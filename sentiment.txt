@@ -1,0 +1,40 @@
+import tkinter as tk
+from ttkthemes import ThemedStyle
+from textblob import TextBlob
+
+
+def analyze_sentiment():
+    input_text = text_input.get("1.0", "end-1c")
+    blob = TextBlob(input_text)
+    sentiment = blob.sentiment.polarity
+    print(sentiment)
+
+    if sentiment > 0:
+        sentiment_label.config(text="Positive", foreground="green")
+    elif sentiment == 0:
+        sentiment_label.config(text="Neutral", foreground="grey")
+    else:
+        sentiment_label.config(text="Negative", foreground="red")
+
+
+root = tk.Tk()
+root.title("Sentiment Analysis")
+
+style = ThemedStyle(root)
+style.set_theme("arc")
+
+text_input_label = tk.Label(root, text="Enter text to analyze:", font=("Arial", 14))
+text_input_label.pack(pady=10)
+
+text_input = tk.Text(root, height=10, width=50, font=("Arial", 12))
+text_input.pack(padx=20)
+
+analyze_button = tk.Button(root, text="Analyze", font=("Arial", 14), command=analyze_sentiment)
+analyze_button.pack(pady=10)
+
+sentiment_label = tk.Label(root, text="", font=("Arial", 20, "bold"))
+sentiment_label.pack(pady=10)
+
+root.mainloop()
+
+root.mainloop()
